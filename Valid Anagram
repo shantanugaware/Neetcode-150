@@ -1,0 +1,33 @@
+Intuition
+As the constraint stated "Only lowercase characters", we can leverage arrays method to count the number of occurance of individual characters in a string. So create 2 arrays for two such string and compare number of occurances for each characters.
+
+Approach
+Check for same length first, then count number of occurances of each character.
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()) return false;
+
+        int[] arrS = new int[26];
+        int[] arrT = new int[26];
+
+        for (int i = 0; i< s.length(); i++){
+            arrS[s.charAt(i) - 97] += 1;
+            arrT[t.charAt(i) - 97] += 1;
+        }
+
+        for(int i = 0;i<26;i++){
+            if(arrS[i] != arrT[i]) return false;
+        }
+        return true;
+
+    }
+}
