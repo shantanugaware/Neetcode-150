@@ -1,0 +1,30 @@
+Intuition
+Brute Approch would be to use two pointers, using nested for loops.
+Other, yet more efficient approach is to use 1 for loop and a hashmap.
+
+Approach
+Populate hashmap with key as array element's value and map value as that element's index position in an array. Check for there was any key in our map in previous iterations that matched with difference between target and current element pointed at (target - nums[i]).
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int[] res = new int[2];
+        
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(target - nums[i])){
+                return new int[]{map.get(target-nums[i]), i};
+            }
+            map.put(nums[i], i);
+        }
+
+        return res;
+    }
+}
