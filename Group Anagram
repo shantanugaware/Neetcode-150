@@ -1,0 +1,28 @@
+Intuition
+Use array to create a freq of characters in a string. Then use that string as a key to a map and add values in that map based on subsequant string if they match
+
+Approach
+Complexity
+Time complexity:
+O(n^2)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        for(int i =0;i<strs.length;i++){
+            int[] arr = new int[26];
+            for(char c:strs[i].toCharArray()){
+                arr[c - 97]++;
+            }
+            String str = Arrays.toString(arr);
+            map.putIfAbsent(str, new ArrayList<>());
+            map.get(str).add(strs[i]);
+        }
+        return new ArrayList<>(map.values());
+
+    }
+}
