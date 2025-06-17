@@ -1,0 +1,24 @@
+Intuition
+HashSet cannot contain duplicate elements, so we can leverage that fact for checking if duplicates exists in given array.
+
+Approach
+Copy content of array in set, if an emelemt already exists in set, return true, else false.
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            if(set.contains(nums[i])) return true;
+            set.add(nums[i]);
+        }
+        return false;
+    }
+}
