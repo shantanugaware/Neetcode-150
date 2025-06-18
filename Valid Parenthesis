@@ -1,0 +1,30 @@
+Intuition
+use stack to evaluate parenthesis expressions. Same as palindrome, only catch is, unless you see closing parenthesis, do not pop!
+
+Approach
+Accept on empty stack. Reject on non empty stack and/or invalid pattern
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public boolean isValid(String s) {
+        //boolean res;
+        if(s.length()<=1) return false;
+        Stack<Character> stack = new Stack<>();
+        for(char c:s.toCharArray()){
+            if(c=='('||c=='['||c=='{') stack.push(c);
+            else if(c==')' && !stack.isEmpty() && stack.peek()=='(') stack.pop();
+            else if(c==']' && !stack.isEmpty() && stack.peek()=='[') stack.pop();
+            else if(c=='}' && !stack.isEmpty() && stack.peek()=='{') stack.pop();
+            else return false;
+        }
+        if(stack.isEmpty())return true;
+        else return false;
+    }
+}
