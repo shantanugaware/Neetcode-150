@@ -1,0 +1,32 @@
+Intuition
+To keep track of frequency means to jot it down in a map! And use Heap or Priority Queue to keep track of most occuring element.
+
+Approach
+Populate map with each elements individual frequency count. Then whichever element had most frequency, maintain them in max PQ, of Map.Entry type) ((a,b) -> b.getValue() - a.getValue()) does create maxPQ for us.
+
+Complexity
+Time complexity:
+O(nlogn)
+
+Space complexity:
+O(n+k)
+
+Code
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        if (nums.length == k) return nums;
+        PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a,b) -> b.getValue() - a.getValue());
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] res = new int[k];
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i], map.getOrDefault(nums[i],0)+1);
+        }
+        for(Map.Entry<Integer, Integer> mapElem : map.entrySet()){
+            pq.add(mapElem);
+        }
+        for(int i=0;i<k;i++){
+            res[i] = pq.poll().getKey();
+        }
+        return res;
+    }
+}
