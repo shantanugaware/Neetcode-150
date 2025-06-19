@@ -1,0 +1,45 @@
+Intuition
+Use stack to solve prefix/postfix expressions.
+
+Approach
+perform operation only when current string literal is an operator. Pop the most recent values and perform the said operation on those values, push the result back in the stack. Accept the result on empty stack.
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+        
+        for (int i = 0; i < tokens.length; i++) {
+            String token = tokens[i];
+
+            if (token.equals("+")) {
+                int b = stack.pop();
+                int a = stack.pop();
+                stack.push(a + b);
+            } else if (token.equals("-")) {
+                int b = stack.pop();
+                int a = stack.pop();
+                stack.push(a - b);
+            } else if (token.equals("*")) {
+                int b = stack.pop();
+                int a = stack.pop();
+                stack.push(a * b);
+            } else if (token.equals("/")) {
+                int b = stack.pop();
+                int a = stack.pop();
+                stack.push(a / b);
+            } else {
+                stack.push(Integer.parseInt(token));
+            }
+        }
+
+        return stack.pop();
+    }
+}
