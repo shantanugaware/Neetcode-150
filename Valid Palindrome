@@ -1,0 +1,51 @@
+Intuition
+We can filter out only alphanumeric characters using regex.
+
+Approach
+Perform two pointers algorithm to check if string is palindrome. One pointer from start, and other from end of filtered out string
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(n)
+
+Code
+class Solution {
+    public boolean isPalindrome(String s) {
+        if(s.length()==1) return true;
+        String str = s.replaceAll("[^a-zA-Z0-9]","").toLowerCase();
+        int i = 0;
+        int j = str.length()-1;
+            while(i<j){
+                if(str.charAt(i)!=str.charAt(j)) return false;
+                i++;
+                j--;
+            }
+        return true;
+    }
+}
+
+
+And
+
+Other Approach focuses on stringbuilder and ascii values, instead of regex, to filter out string
+
+class Solution {
+    public boolean isPalindrome(String s) {
+        StringBuilder sb = new StringBuilder();
+        for(char c:s.toCharArray()){
+            if((c>=48 && c<=57) || (c>=65 && c<=90) ||(c>=97 && c<=122)) 
+                sb.append(c);
+        }
+        String str = sb.toString().toLowerCase();
+        if(str.length()<=1) return true;
+        int i=-1; int j=str.length();
+        while(i<j){
+            i++; j--;
+            if(str.charAt(i)!=str.charAt(j)) return false;
+        }
+        return true;
+    }
+}
