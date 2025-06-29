@@ -1,0 +1,42 @@
+Intuition
+Use maps to keep track of seen digits accross each row, col, and squares.
+
+Approach
+Create array of hashmaps, each hashmap would contain value of corresponding sudoku board. trick was to figure out square's position. We have used (i/3) * 3 + (j/3) to find squares pos.
+
+Complexity
+Time complexity:
+O(1);
+
+Space complexity:
+O(1);
+
+Both Time and Space conplexity are constant because the constraints of a fixed 9x9 Sudoku board.
+
+Code
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        HashMap<Character,Integer> rows[] = new HashMap[9]; // Array of type hashmap
+        HashMap<Character,Integer> columns[] = new HashMap[9];
+        HashMap<Character,Integer> squares[] = new HashMap[9];
+        for(int i=0;i<9;i++){
+            rows[i] = new HashMap<>();
+            columns[i] = new HashMap<>();
+            squares[i] = new HashMap<>();
+        }
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                char c = board[i][j];
+                if(c == '.') continue;
+                else if(rows[i].containsKey(c) || columns[j].containsKey(c) || squares[(i/3) * 3 + (j/3)].containsKey(c)){
+                    return false;
+                }
+                rows[i].put(c,1);
+                columns[j].put(c,1);
+                squares[(i/3) * 3 + (j/3)].put(c,1);
+            }
+        }
+        return true;
+
+    }
+}
