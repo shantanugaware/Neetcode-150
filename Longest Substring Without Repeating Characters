@@ -1,0 +1,33 @@
+@
+Intuition
+Use Sliding Window to find longest subsequence.
+
+Approach
+Use 2 pointers, if same character appears, remove from seen set, and increment left pointer or (i), if different character appears, add that to our seen set and increment our right pointer (j), and update resultent length.
+
+Complexity
+Time O(n)
+Space O(min(n, m))
+
+Code
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()<2) return s.length();
+        int res = 0;
+        int i=0;
+        int j=0;
+        HashSet<Character> set = new HashSet<>();
+        while(j<s.length()){
+            if(!set.contains(s.charAt(j))){
+                set.add(s.charAt(j));
+                res = res<=(j-i) ? (j-i)+1 : res;
+                j++;
+            }
+            else{
+                set.remove(s.charAt(i));
+                i++;
+            }
+        }
+        return res;
+    }
+}
