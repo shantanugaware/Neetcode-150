@@ -1,0 +1,28 @@
+Intuition
+Brute Force would be to use nested for loops, Smart way would be to test depth of water with highest highs and widest widths possible.
+
+Approach
+Be gready and use 2 pointers
+
+Complexity
+Time complexity:
+O(n)
+
+Space complexity:
+O(1)
+
+Code
+class Solution {
+    public int maxArea(int[] height) {
+        int result = 0;
+        int left=0;
+        int right=height.length-1;
+        while(left<right){
+            result=Math.max(result, (Math.min(height[left],height[right]) * (right-left)));
+            if(height[left]<height[right]) left++;
+            else right--;
+            
+        }
+        return result;
+    }
+}
