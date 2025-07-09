@@ -1,0 +1,45 @@
+💡
+- Space complexity:
+O(1)
+
+# Code
+```java []
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length<2) return nums.length;
+        Arrays.sort(nums);
+        
+
+Generated from the chosen submission
+Intuition
+Consecutive means +1. So we use curr pointer to keep track next required value as curr++, or current value we are looking for in form of curr. No duplicates are accounted for. And Streak is used to keep track of number of times consecutively occuring values.
+
+Complexity
+Time complexity:
+O(nlogn) because using sorting
+
+Space complexity:
+O(1)
+
+Code
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums.length<2) return nums.length;
+        Arrays.sort(nums);
+        
+        int res=0, curr = nums[0], i = 0, streak = 0;
+        while(i<nums.length){
+            if(nums[i]!=curr){
+                curr = nums[i];
+                streak=0;
+            }
+            while(i<nums.length && nums[i]==curr){
+                i++;
+            }
+            streak++;
+            curr+=1;
+            res = Math.max(res, streak);
+        }
+        return res;
+    }
+} 
