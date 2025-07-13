@@ -1,0 +1,39 @@
+Intuition
+Max speed koko will take is max value of the piles. And min possible (Could be) speed is 1. So do B-Search in this range to find the min possible (Actual) speed.
+
+Approach
+Set Right to max value in piles. Calculate mid, and find total hours needed for KOKO to eat bananas at mid-speed. If needed hours <=h then koko could afford to eat at slower pace. else Koko needs to pace up.
+
+Complexity
+Time complexity:
+O(nlogm)
+
+Space complexity:
+O(1)
+
+Code
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int left = 1;
+        int right = -1;
+        for(int i=0;i<piles.length;i++){
+            right = Math.max(right, piles[i]);
+        }
+        int res=right;
+        while(left<=right){
+            long hourNeeded = 0; //long used because int overflow was occuring
+            int mid = left + (right - left)/2;
+            for(int i=0;i<piles.length;i++){
+                hourNeeded += (piles[i] + mid - 1) / mid;
+            }
+            if(hourNeeded<=h){
+                res = mid;
+                right = mid-1; //because we want to find min possible speed.
+            }
+            else{
+                left = mid+1;
+            }
+        }
+        return res;
+    }
+}
