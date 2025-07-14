@@ -1,0 +1,67 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        if(s1.length()>s2.length()) return false;
+        int left = 0;
+        int right = s1.length()-1;
+        int[] s1a = new int[26];
+        for(int i=0;i<s1.length();i++){
+            s1a[s1.charAt(i) - 'a']++;
+        }
+        while(right<s2.length()){
+            int[] s2a = new int[26];
+            for(int i=left;i<=right;i++){
+                s2a[s2.charAt(i) - 'a']++;
+            }
+            for(int i=0;i<26;i++){
+                if(s1a[i] == s2a[i]){
+                    if(i==25) return true;
+                    else continue;
+                }
+                else{
+                    left++;
+                    right++;
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+
+
+efficient version
+class Solution {
+    private boolean checkFreq(int[] a , int[] b){
+        for(int i=0;i<26;i++){
+            if(a[i]!=b[i]) return false;
+        }
+        return true;
+    }
+    public boolean checkInclusion(String s1, String s2) {
+        if(s2.length()<s1.length()) return false;
+        int[] freqS1 = new int[26];
+        for(char c:s1.toCharArray()){
+            freqS1[c - 'a']++;
+        } 
+        int[] freqS2 = new int[26];
+        int left =0; int right=0;
+        while(right<s2.length()){                 // while right pointer is not at end of the s2
+            freqS2[s2.charAt(right) - 'a']++;
+
+            if(right-left==s1.length()-1){     //if equal to window length
+                if(checkFreq(freqS1, freqS2)) return true;
+            }
+
+            if(right-left>=s1.length()-1){     //if greater/equal to than window length
+                freqS2[s2.charAt(left) - 'a']--;
+                left++;
+                right++;
+            }
+            else{                              //if less than window length
+                right++;
+            }
+        }
+        return false;                        //no such window exist where freq of s1 characters matches with freq of substring, of some window of size s1 which is subset of s2.
+    }
+}
