@@ -1,0 +1,67 @@
+Intuition
+We can leverage the fact that we have encountered the similar, but a kind of sub problem of merging two lists. We can do the same for K lists too, Keep merging 2 lists one after the other, keep the merged list in array, and merge that resultant list with next list in our lists ListNode[] array.
+
+Approach
+By using the merge sorts princple of recursion, we can get this task done in O(nlogk) time. If we prefer, We can iterate through the list array with index i, starting at i = 1. We merge the linked lists using mergeTwoLists(lists[i], lists[i - 1]), which returns the head of the merged list. This head is stored in lists[i], and the process continues. Finally, the merged list is obtained at the last index, and we return its head. But this would result on O(n.k) time.
+So merge approcah seems better choice (Divide and Conquer)
+
+Complexity
+Time complexity:
+O(nlogk)
+Space complexity:
+O(n)
+Code
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode finalList = new ListNode(-1);
+        ListNode curr = finalList;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                curr.next = l1;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                l2 = l2.next;
+            }
+            curr = curr.next;
+        }
+        if (l1 == null)
+            curr.next = l2;
+        else
+            curr.next = l1;
+        return finalList.next;
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        return mergeRange(lists, 0, lists.length - 1);
+    }
+
+    private ListNode mergeRange(ListNode[] lists, int left, int right) {
+        if (left == right) return lists[left];
+        int mid = left + (right - left) / 2;
+        ListNode l1 = mergeRange(lists, left, mid);
+        ListNode l2 = mergeRange(lists, mid + 1, right);
+        return mergeTwoLists(l1, l2);
+    }// Merge approach
+
+/*public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0)
+            return null;
+        ListNode resList = lists[0];
+        for (int i = 1; i < lists.length; i++) {
+            resList = mergeTwoLists(resList, lists[i]);
+        }
+        return resList;
+    }*/ //This is itterative approach
+}
