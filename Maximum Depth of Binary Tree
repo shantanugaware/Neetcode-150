@@ -1,0 +1,28 @@
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root ==null) return 0;
+
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+
+        return 1 + Math.max(leftDepth, rightDepth); //this 1+ is what counting how deep we are in the tree.
+                                                    //Each time the func calls itself, the 1 is added for each 
+                                                    //side i.e.(left or right.) and MAX is choosen among both.
+    }
+}
+
+/*class Solution {
+    int max = 0;
+    int level = 0;
+    public int maxDepth(TreeNode root) {
+        level++;
+        if (root == null) return 0;
+        max = Math.max(max,level);
+        maxDepth(root.left);
+        level--;
+        maxDepth(root.right);
+        level--;
+        return max;
+
+    }
+}*/
