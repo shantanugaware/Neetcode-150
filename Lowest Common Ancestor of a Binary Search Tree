@@ -1,0 +1,17 @@
+Since it is BST, nodes to left of root node, will have value less than root value. And nodes right to the root node, will have value greater than root node.
+
+
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        if(root==null) return null;
+
+        if(root.val>=p.val && root.val<=q.val) return root;
+        if(root.val>p.val && root.val>q.val) return lowestCommonAncestor(root.left,p,q);
+        if(root.val<p.val && root.val<q.val) return lowestCommonAncestor(root.right,p,q);
+
+        return root;
+
+               
+    }
+}
