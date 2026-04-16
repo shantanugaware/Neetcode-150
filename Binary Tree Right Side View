@@ -1,0 +1,44 @@
+//DFS
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        dfs(root, 0, res);
+        return res;
+    }
+
+    private void dfs(TreeNode node, int level, List<Integer> res) {
+        if (node == null) return;
+
+        if (level == res.size()) {
+            res.add(node.val);
+        }
+
+        dfs(node.right, level + 1, res);
+        dfs(node.left, level + 1, res);
+    }
+}
+
+//BFS using queue
+// class Solution {
+//     public List<Integer> rightSideView(TreeNode root) {
+//         List<Integer> res = new ArrayList<>();
+//         if(root==null) return res;
+//         Queue<TreeNode> queue = new ArrayDeque<>();
+//         queue.offer(root);
+        
+//         while(!queue.isEmpty()){
+//             TreeNode node = queue.peek();
+//             res.add(node.val);
+//             Queue<TreeNode> queue1 = new ArrayDeque<>();
+//             while(!queue.isEmpty()){
+//                 TreeNode node1 = queue.poll();
+//                 if(node1.right!=null) queue1.offer(node1.right);
+//                 if(node1.left!=null) queue1.offer(node1.left);
+//             }
+//             while(!queue1.isEmpty()){
+//                 queue.offer(queue1.poll());
+//             }
+//         }
+//         return res;
+//     }
+// }
